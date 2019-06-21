@@ -19,6 +19,7 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import ClassificationStats from './ClassificationStats';
+import MeetAScientist from './MeetAScientist';
 import ZooLogo from './ZooLogo';
 
 type Props = {};
@@ -29,19 +30,26 @@ export default class App extends Component<Props> {
     this.state = {
       height: Dimensions.get('window').height,
       width: Dimensions.get('window').width,
+      position: 0
     };
   }
 
   previous() {
-    const pos = this.state.position === 0 ? this.props.dataSource.length-1 : this.state.position - 1;
-    this.move(pos);
-    this.setState({position: pos});
+    const position = this.state.position === 0 ? 2-1 : this.state.position - 1;
+    this.move(position);
+    this.setState({position});
+  }
+
+  next() {
+    const position = this.state.position === 2-1 ? 0 : this.state.position + 1;
+    this.move(position);
+    this.setState({position});
   }
 
   move(index) {
-    const isUpdating = index !== this._getPosition();
+    const isUpdating = index !== this.state.position;
     const x = this.state.width * index;
-    this._ref.scrollTo({x: this.state.width * index, y: 0, animated: true});
+    this.scroller.scrollTo({x: this.state.width * index, y: 0, animated: true});
     this.setState({position: index});
     if (isUpdating && this.props.onPositionChanged) {
       this.props.onPositionChanged(index);
@@ -54,15 +62,18 @@ export default class App extends Component<Props> {
 
         <ZooLogo style={styles.logo} />
 
-        <TouchableOpacity style={{...styles.arrowLeft, top: this.state.height/2}} onPress={() => this.previous()}>
+        <ScrollView ref={ref => this.scroller = ref} horizontal style={[styles.scroller, {height: this.state.height, width: this.state.width}]}>
+          <ClassificationStats width={this.state.width} />
+          <MeetAScientist width={this.state.width} />
+        </ScrollView>
+
+        <TouchableOpacity style={{...styles.arrowLeft, top: this.state.height/2.5}} onPress={() => this.previous()}>
           <FontAwesomeIcon icon={ faChevronLeft } color={ '#E5FF4D' } size={60} />
         </TouchableOpacity>
 
-        <ScrollView horizontal style={[styles.scroller, {height: this.state.height, width: this.state.width}]}>
-          <ClassificationStats width={this.state.width} />
-        </ScrollView>
-
-        <FontAwesomeIcon style={{...styles.arrowRight, top: this.state.height/2}} icon={ faChevronRight } color={ '#E5FF4D' } size={60} />
+        <TouchableOpacity style={{...styles.arrowRight, top: this.state.height/2.5}} onPress={() => this.next()}>
+          <FontAwesomeIcon icon={ faChevronRight } color={ '#E5FF4D' } size={60} />
+        </TouchableOpacity>
       </View>
     );
   }

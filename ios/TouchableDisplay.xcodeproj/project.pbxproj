@@ -60,6 +60,7 @@
 		42A1A17BEE2441E79E132F01 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB530AC6BCE74D7EBBF4FF75 /* Zocial.ttf */; };
 		E7CB3AC6E7BE41088AB928D2 /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 85016B8F161542C4AFB1FEA8 /* libRNSVG.a */; };
 		BCC6EFA2E6FB43C693E2C29A /* libRNSVG-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F85061771F534F188E28D95F /* libRNSVG-tvOS.a */; };
+		7DEB2D5A30064C72864212B3 /* IBMPlexSerif-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5B17D577DC4542E79FBDCD1A /* IBMPlexSerif-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -390,6 +391,7 @@
 		7C590817A5A647A4BB3993A7 /* RNSVG.xcodeproj */ = {isa = PBXFileReference; name = "RNSVG.xcodeproj"; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		85016B8F161542C4AFB1FEA8 /* libRNSVG.a */ = {isa = PBXFileReference; name = "libRNSVG.a"; path = "libRNSVG.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		F85061771F534F188E28D95F /* libRNSVG-tvOS.a */ = {isa = PBXFileReference; name = "libRNSVG-tvOS.a"; path = "libRNSVG-tvOS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		5B17D577DC4542E79FBDCD1A /* IBMPlexSerif-Regular.ttf */ = {isa = PBXFileReference; name = "IBMPlexSerif-Regular.ttf"; path = "../assets/fonts/IBMPlexSerif-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -681,6 +683,7 @@
 				8831F6CEBE4049349C333CDA /* Octicons.ttf */,
 				6B0D97FE565643079ACC5A98 /* SimpleLineIcons.ttf */,
 				FB530AC6BCE74D7EBBF4FF75 /* Zocial.ttf */,
+				5B17D577DC4542E79FBDCD1A /* IBMPlexSerif-Regular.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1149,6 +1152,7 @@
 				75432199DE8D4142A0CC6B22 /* Octicons.ttf in Resources */,
 				137419586FB04CA4AFB94027 /* SimpleLineIcons.ttf in Resources */,
 				42A1A17BEE2441E79E132F01 /* Zocial.ttf in Resources */,
+				7DEB2D5A30064C72864212B3 /* IBMPlexSerif-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
