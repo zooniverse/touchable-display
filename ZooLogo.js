@@ -1,10 +1,10 @@
-import React from 'react'
+import React from 'react';
 import {Image,StyleSheet, Text, View} from 'react-native';
 import PropTypes from 'prop-types';
 
 const ZooLogo = () => {
   return (
-    <View>
+    <View style={styles.container}>
       <Image style={styles.zooStyle} source={require('./images/zooniverse.png')}/>
       <Text style={styles.presents}>PRESENTS</Text>
       <Image style={styles.uScientistStyle} source={require('./images/uscientist.png')}/>
@@ -13,6 +13,10 @@ const ZooLogo = () => {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    marginLeft: 'auto',
+    marginRight: 'auto'
+  },
   presents: {
     color: '#FFFFFF',
     fontFamily: 'Poppins',
