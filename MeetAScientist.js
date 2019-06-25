@@ -1,10 +1,11 @@
 import React from 'react'
 import {Image,StyleSheet, Text, View} from 'react-native';
 import PropTypes from 'prop-types';
+import SeeMore from './SeeMore';
 
-const MeetAScientist = ({width}) => {
+const MeetAScientist = ({height, width}) => {
   return (
-    <View style={{...styles.container, width}}>
+    <View style={{...styles.container, height, width}}>
       <View style={styles.scientist}>
         <Image style={styles.image} source={require('./images/simmons.png')}/>
       </View>
@@ -17,11 +18,13 @@ const MeetAScientist = ({width}) => {
           especially in tandem with their central supermassive black holes.
         </Text>
       </View>
+      <SeeMore style={{position: 'absolute', bottom: 0}} />
     </View>
   );
 }
 
 MeetAScientist.propTypes = {
+  height: PropTypes.number,
   width: PropTypes.number
 }
 

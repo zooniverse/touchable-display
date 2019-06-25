@@ -20,6 +20,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import ClassificationStats from './ClassificationStats';
 import MeetAScientist from './MeetAScientist';
+import ContinueOnline from './ContinueOnline';
 import ZooLogo from './ZooLogo';
 
 type Props = {};
@@ -35,13 +36,13 @@ export default class App extends Component<Props> {
   }
 
   previous() {
-    const position = this.state.position === 0 ? 2-1 : this.state.position - 1;
+    const position = this.state.position === 0 ? 3-1 : this.state.position - 1;
     this.move(position);
     this.setState({position});
   }
 
   next() {
-    const position = this.state.position === 2-1 ? 0 : this.state.position + 1;
+    const position = this.state.position === 3-1 ? 0 : this.state.position + 1;
     this.move(position);
     this.setState({position});
   }
@@ -64,7 +65,8 @@ export default class App extends Component<Props> {
 
         <ScrollView ref={ref => this.scroller = ref} horizontal style={[styles.scroller, {height: this.state.height, width: this.state.width}]}>
           <ClassificationStats width={this.state.width} />
-          <MeetAScientist width={this.state.width} />
+          <MeetAScientist height={this.state.height} width={this.state.width} />
+          <ContinueOnline width={this.state.width} />
         </ScrollView>
 
         <TouchableOpacity style={{...styles.arrowLeft, top: this.state.height/2.5}} onPress={() => this.previous()}>
