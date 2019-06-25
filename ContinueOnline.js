@@ -6,6 +6,8 @@ import SeeMore from './SeeMore';
 const ContinueOnline = ({width}) => {
   return (
     <View style={{...styles.container, width: width}}>
+      <Image style={styles.star} source={require('./images/star-two.png')}/>
+      <Image style={styles.spiral} source={require('./images/spiral-three.png')}/>
       <Text style={styles.header}>KEEP DOING REAL SCIENCE</Text>
       <Text style={styles.link}>uscientist.org</Text>
       <Text style={{...styles.bio, width: width/2}}>
@@ -42,6 +44,22 @@ const styles = StyleSheet.create({
     fontSize: 50,
     fontWeight: 'bold'
   },
+  spiral: {
+    height: 250,
+    width: 165,
+    right: 200,
+    top: 0,
+    position: 'absolute',
+    resizeMode: 'contain'
+  },
+  star: {
+    height: 175,
+    width: 225,
+    left: 150,
+    position: 'absolute',
+    bottom: 0,
+    resizeMode: 'contain'
+  }
 });
 
 export default ContinueOnline;

@@ -6,6 +6,8 @@ import SeeMore from './SeeMore';
 const MeetAScientist = ({height, width}) => {
   return (
     <View style={{...styles.container, height, width}}>
+      <Image style={styles.star} source={require('./images/star-two.png')}/>
+      <Image style={styles.spiral} source={require('./images/spiral-two.png')}/>
       <View style={styles.scientist}>
         <Image style={styles.image} source={require('./images/simmons.png')}/>
       </View>
@@ -36,7 +38,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   image: {
     width: 175,
@@ -62,6 +64,22 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     margin: 25
+  },
+  spiral: {
+    height: 250,
+    width: 165,
+    bottom: 0,
+    left: 0,
+    position: 'absolute',
+    resizeMode: 'contain'
+  },
+  star: {
+    height: 175,
+    width: 225,
+    right: 0,
+    position: 'absolute',
+    top: 0,
+    resizeMode: 'contain'
   }
 });
 
