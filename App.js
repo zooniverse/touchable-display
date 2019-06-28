@@ -9,6 +9,7 @@
 import React, {Component} from 'react';
 import {
   Dimensions,
+  PanResponder,
   ScrollView,
   StyleSheet,
   Text,
@@ -24,6 +25,8 @@ import ContinueOnline from './ContinueOnline';
 import ZooLogo from './ZooLogo';
 
 type Props = {};
+const TOTAL_SLIDES = 3;
+
 export default class App extends Component<Props> {
   constructor(props) {
     super(props);
@@ -35,14 +38,48 @@ export default class App extends Component<Props> {
     };
   }
 
+  componentWillMount() {
+    let release = (e, gestureState) => {
+      const width = this.state.width;
+      const relativeDistance = gestureState.dx / width;
+      const vx = gestureState.vx;
+      let change = 0;
+
+      if (relativeDistance < -0.5 || (relativeDistance < 0 && vx <= 0.5)) {
+        change = 1;
+      } else if (relativeDistance > 0.5 || (relativeDistance > 0 && vx >= 0.5)) {
+        change = -1;
+      }
+      const position = this.getPosition();
+      if (position === 0 && change === -1) {
+        change = 0;
+      } else if (position + change >= TOTAL_SLIDES) {
+        change = (TOTAL_SLIDES) - (position + change);
+      }
+      this.move(position + change);
+      return true;
+    };
+
+    this._panResponder = PanResponder.create({
+      onPanResponderRelease: release
+    });
+  }
+
+  getPosition() {
+    if (typeof this.props.position === 'number') {
+      return this.props.position;
+    }
+    return this.state.position;
+  }
+
   previous() {
-    const position = this.state.position === 0 ? 3-1 : this.state.position - 1;
+    const position = this.state.position === 0 ? TOTAL_SLIDES-1 : this.state.position - 1;
     this.move(position);
     this.setState({position});
   }
 
   next() {
-    const position = this.state.position === 3-1 ? 0 : this.state.position + 1;
+    const position = this.state.position === TOTAL_SLIDES-1 ? 0 : this.state.position + 1;
     this.move(position);
     this.setState({position});
   }
@@ -63,7 +100,11 @@ export default class App extends Component<Props> {
 
         <ZooLogo style={styles.logo} />
 
-        <ScrollView ref={ref => this.scroller = ref} horizontal style={[styles.scroller, {height: this.state.height, width: this.state.width}]}>
+        <ScrollView
+          ref={ref => this.scroller = ref}
+          horizontal
+          style={[styles.scroller, {height: this.state.height, width: this.state.width}]}
+          {...this._panResponder.panHandlers}>
           <ClassificationStats width={this.state.width} />
           <MeetAScientist height={this.state.height} width={this.state.width} />
           <ContinueOnline width={this.state.width} />
