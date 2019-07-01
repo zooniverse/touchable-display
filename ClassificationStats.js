@@ -3,14 +3,14 @@ import {Image,StyleSheet, Text, View} from 'react-native';
 import PropTypes from 'prop-types';
 import SeeMore from './SeeMore';
 
-const ClassificationStats = ({width}) => {
+const ClassificationStats = ({classificationCount, width}) => {
   return (
     <View style={{...styles.container, width}}>
       <Image style={styles.star} source={require('./images/star.png')}/>
       <Image style={styles.spiral} source={require('./images/spiral.png')}/>
       <View>
         <Text style={styles.header}>ALL-TIME U!SCIENTIST CLASSIFICATIONS</Text>
-        <Text style={styles.classificationCount}>12,254</Text>
+        <Text style={styles.classificationCount}>{classificationCount.toLocaleString()}</Text>
       </View>
       <SeeMore />
     </View>
@@ -18,6 +18,7 @@ const ClassificationStats = ({width}) => {
 }
 
 ClassificationStats.propTypes = {
+  classificationCount: PropTypes.number,
   width: PropTypes.number
 }
 
@@ -25,7 +26,8 @@ const styles = StyleSheet.create({
   header: {
     color: '#A3DDEE',
     fontFamily: 'Poppins',
-    fontSize: 20
+    fontSize: 20,
+    textAlign: 'center'
   },
   classificationCount: {
     color: '#E5FF4D',

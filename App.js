@@ -19,10 +19,12 @@ import {
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import statsClient from "panoptes-client/lib/stats-client";
 import ClassificationStats from './ClassificationStats';
 import MeetAScientist from './MeetAScientist';
 import ContinueOnline from './ContinueOnline';
 import ZooLogo from './ZooLogo';
+import { config } from './config.js';
 
 type Props = {};
 const TOTAL_SLIDES = 3;
@@ -32,6 +34,7 @@ export default class App extends Component<Props> {
     super(props);
 
     this.state = {
+      classificationCount: 0,
       height: Dimensions.get('window').height,
       width: Dimensions.get('window').width,
       position: 0
@@ -63,6 +66,16 @@ export default class App extends Component<Props> {
     this._panResponder = PanResponder.create({
       onPanResponderRelease: release
     });
+  }
+
+  componentDidMount() {
+    const query = { workflowID: config.tableWorkflowID, period: "year", type: "classification"};
+    statsClient.query(query)
+      .then((data) => {
+        let classificationCount = 0;
+        data.map(year => classificationCount += year.doc_count);
+          this.setState({ classificationCount });
+        })
   }
 
   getPosition() {
@@ -105,7 +118,7 @@ export default class App extends Component<Props> {
           horizontal
           style={[styles.scroller, {height: this.state.height, width: this.state.width}]}
           {...this._panResponder.panHandlers}>
-          <ClassificationStats width={this.state.width} />
+          <ClassificationStats classificationCount={this.state.classificationCount} width={this.state.width} />
           <MeetAScientist height={this.state.height} width={this.state.width} />
           <ContinueOnline width={this.state.width} />
         </ScrollView>
