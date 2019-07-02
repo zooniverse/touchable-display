@@ -20,6 +20,7 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import statsClient from "panoptes-client/lib/stats-client";
+import Pusher from "pusher-js/react-native"
 import ClassificationStats from './ClassificationStats';
 import MeetAScientist from './MeetAScientist';
 import ContinueOnline from './ContinueOnline';
@@ -39,6 +40,8 @@ export default class App extends Component<Props> {
       width: Dimensions.get('window').width,
       position: 0
     };
+
+    this.processClassification = this.processClassification.bind(this);
   }
 
   componentWillMount() {
@@ -69,6 +72,8 @@ export default class App extends Component<Props> {
   }
 
   componentDidMount() {
+    this.configPusher();
+
     const query = { workflowID: config.tableWorkflowID, period: "year", type: "classification"};
     statsClient.query(query)
       .then((data) => {
@@ -78,11 +83,23 @@ export default class App extends Component<Props> {
         })
   }
 
+  configPusher() {
+    const pusher = new Pusher('79e8e05ea522377ba6db', {encrypted: true});
+    const channel = pusher.subscribe('panoptes');
+    channel.bind('classification', this.processClassification);
+  }
+
   getPosition() {
     if (typeof this.props.position === 'number') {
       return this.props.position;
     }
     return this.state.position;
+  }
+
+  processClassification(classification) {
+    if (classification.workflow_id === config.workflowID) {
+      this.setState({ classificationCount: this.state.classificationCount + 1 });
+    }
   }
 
   previous() {
