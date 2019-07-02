@@ -2,34 +2,35 @@ import React from 'react';
 import {Image,StyleSheet, Text, View} from 'react-native';
 import PropTypes from 'prop-types';
 
-const ZooLogo = () => {
+const ZooLogo = ({ height, width }) => {
+
   return (
-    <View>
+    <View style={[styles.container, { height: height/10, width: width/8 }]}>
       <Image style={styles.zooStyle} source={require('./images/zooniverse.png')}/>
       <Text style={styles.presents}>PRESENTS</Text>
-      <Image style={styles.uScientistStyle} source={require('./images/uscientist.png')}/>
+      <Image style={[styles.uScientistStyle, { width: width/8 }]} source={require('./images/uscientist.png')}/>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    marginTop: 50
+  },
   presents: {
     color: '#FFFFFF',
     fontFamily: 'Poppins',
-    fontSize: 5,
     fontWeight: 'bold',
-    textAlign: 'center'
+    textAlign: 'center',
+    fontSize: 10
   },
   uScientistStyle: {
-    height: 50,
-    width: 125,
+    flex: 6,
     resizeMode: 'contain'
   },
   zooStyle: {
-    height: 15,
-    width: 75,
-    marginLeft: 'auto',
-    marginRight: 'auto',
+    flex: 1,
     resizeMode: 'contain'
   }
 });

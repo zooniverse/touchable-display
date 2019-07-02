@@ -57,7 +57,7 @@ export default class App extends Component<Props> {
       if (position === 0 && change === -1) {
         change = 0;
       } else if (position + change >= TOTAL_SLIDES) {
-        change = (TOTAL_SLIDES) - (position + change);
+        change = -position;
       }
       this.move(position + change);
       return true;
@@ -111,24 +111,33 @@ export default class App extends Component<Props> {
     return (
       <View style={[styles.container, {height: this.state.height}]}>
 
-        <ZooLogo style={styles.logo} />
+        <ZooLogo
+          height={this.state.height}
+          width={this.state.width}/>
 
         <ScrollView
           ref={ref => this.scroller = ref}
           horizontal
           style={[styles.scroller, {height: this.state.height, width: this.state.width}]}
           {...this._panResponder.panHandlers}>
-          <ClassificationStats classificationCount={this.state.classificationCount} width={this.state.width} />
+          <ClassificationStats
+            classificationCount={this.state.classificationCount}
+            height={this.state.height}
+            width={this.state.width} />
           <MeetAScientist height={this.state.height} width={this.state.width} />
-          <ContinueOnline width={this.state.width} />
+          <ContinueOnline height={this.state.height} width={this.state.width} />
         </ScrollView>
 
-        <TouchableOpacity style={{...styles.arrowLeft, top: this.state.height/2.5}} onPress={() => this.previous()}>
-          <FontAwesomeIcon icon={ faChevronLeft } color={ '#E5FF4D' } size={60} />
+        <TouchableOpacity
+          style={[layoutArrow(this.state.height, 100), { left: 10 }]}
+          onPress={() => this.previous()}>
+          <FontAwesomeIcon icon={ faChevronLeft } color={ '#E5FF4D' } size={100} />
         </TouchableOpacity>
 
-        <TouchableOpacity style={{...styles.arrowRight, top: this.state.height/2.5}} onPress={() => this.next()}>
-          <FontAwesomeIcon icon={ faChevronRight } color={ '#E5FF4D' } size={60} />
+        <TouchableOpacity
+          style={[layoutArrow(this.state.height, 100), { right: 10 }]}
+          onPress={() => this.next()}>
+          <FontAwesomeIcon icon={ faChevronRight } color={ '#E5FF4D' } size={100} />
         </TouchableOpacity>
       </View>
     );
@@ -137,6 +146,15 @@ export default class App extends Component<Props> {
 
 App.propTypes = {
   position: PropTypes.number
+}
+
+const layoutArrow = function (imageHeight, iconHeight) {
+  return {
+    top: (imageHeight-iconHeight)/2,
+    bottom: (imageHeight-iconHeight)/2,
+    color: '#E5FF4D',
+    position: 'absolute',
+  };
 }
 
 const styles = StyleSheet.create({
