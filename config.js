@@ -1,6 +1,6 @@
-const DEFAULT_ENV = 'development';
+const DEFAULT_ENV = 'production';
 const envFromShell = process.env.NODE_ENV;
-const env = envFromShell || DEFAULT_ENV;
+const env = DEFAULT_ENV;
 
 const baseConfig = {
   development: {

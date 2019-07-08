@@ -58,7 +58,7 @@ export default class App extends Component<Props> {
       }
       const position = this.getPosition();
       if (position === 0 && change === -1) {
-        change = 0;
+        change = TOTAL_SLIDES;
       } else if (position + change >= TOTAL_SLIDES) {
         change = -position;
       }
