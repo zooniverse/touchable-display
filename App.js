@@ -97,7 +97,7 @@ export default class App extends Component<Props> {
   }
 
   processClassification(classification) {
-    if (classification.workflow_id === config.workflowID) {
+    if (classification.workflow_id === config.tableWorkflowID) {
       this.setState({ classificationCount: this.state.classificationCount + 1 });
     }
   }
