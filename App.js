@@ -41,6 +41,8 @@ export default class App extends Component<Props> {
       position: 0
     };
 
+    this.restartTimer = this.restartTimer.bind(this);
+    this.next = this.next.bind(this);
     this.processClassification = this.processClassification.bind(this);
   }
 
@@ -73,6 +75,7 @@ export default class App extends Component<Props> {
 
   componentDidMount() {
     this.configPusher();
+    this.restartTimer();
 
     const query = { workflowID: config.tableWorkflowID, period: "year", type: "classification"};
     statsClient.query(query)
@@ -122,6 +125,18 @@ export default class App extends Component<Props> {
     if (isUpdating && this.props.onPositionChanged) {
       this.props.onPositionChanged(index);
     }
+    this.restartTimer();
+  }
+
+  resetTimer() {
+    if (this.timer) {
+      clearTimeout(this.timer);
+    }
+  }
+
+  restartTimer() {
+    this.resetTimer();
+    this.timer = setTimeout(this.next, 10000);
   }
 
   render() {
